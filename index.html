@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador de crédito</title>
+  <meta name="description" content="Simulador de crédito con tabla de amortización, hecho en JavaScript puro.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="logo" aria-hidden="true">$</div>
+    <div>
+      <h1>Simulador de crédito</h1>
+      <p>por Aura Martínez</p>
+    </div>
+    <a class="nav-link" href="https://github.com/AURACHICO/simulador-credito-js">Ver código</a>
+  </header>
+
+  <main class="layout">
+    <section class="panel form" aria-labelledby="t-datos">
+      <h2 id="t-datos">Datos del crédito</h2>
+
+      <label for="monto">Monto a financiar</label>
+      <input type="number" id="monto" value="5000000" min="100000" step="100000" inputmode="numeric">
+      <input type="range" id="monto-rango" min="500000" max="50000000" step="100000" value="5000000" aria-label="Monto a financiar">
+
+      <label for="tasa">Tasa de interés mensual (%)</label>
+      <input type="number" id="tasa" value="1.8" min="0" step="0.1" inputmode="decimal">
+      <p class="hint">Equivale a <strong id="tasa-anual"></strong> efectivo anual</p>
+
+      <label for="plazo">Plazo: <strong id="plazo-texto">12</strong> meses</label>
+      <input type="range" id="plazo" min="2" max="72" step="1" value="12">
+
+      <label for="sistema">Sistema de amortización</label>
+      <select id="sistema">
+        <option value="fija">Cuota fija</option>
+        <option value="capital">Abono fijo a capital</option>
+      </select>
+
+      <p class="error" id="error" role="alert"></p>
+    </section>
+
+    <div class="results">
+      <section class="kpis" aria-label="Resumen">
+        <article class="kpi"><span id="kpi-cuota-label">Cuota mensual</span><strong id="kpi-cuota"></strong></article>
+        <article class="kpi"><span>Total intereses</span><strong id="kpi-interes" class="interes"></strong></article>
+        <article class="kpi"><span>Total a pagar</span><strong id="kpi-total"></strong></article>
+      </section>
+
+      <section class="panel" aria-labelledby="t-grafico">
+        <div class="panel-head">
+          <h2 id="t-grafico">Composición de cada cuota</h2>
+          <p class="legend"><i class="dot capital"></i>Capital <i class="dot interes"></i>Interés</p>
+        </div>
+        <svg id="grafico" viewBox="0 0 600 150" preserveAspectRatio="none" role="img" aria-label="Capital e interés de cada cuota"></svg>
+      </section>
+    </div>
+
+    <section class="panel tabla" aria-labelledby="t-tabla">
+      <div class="panel-head">
+        <h2 id="t-tabla">Tabla de amortización</h2>
+        <div class="actions">
+          <button type="button" id="ver-todas" class="btn ghost">Ver todas las cuotas</button>
+          <button type="button" id="exportar" class="btn">Descargar para Excel</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Cuota</th><th>Valor cuota</th><th>Interés</th><th>Abono a capital</th><th>Saldo</th></tr>
+          </thead>
+          <tbody id="filas"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>Hecho con HTML, CSS y JavaScript puro · Los valores son una simulación y no constituyen una oferta de crédito.</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
